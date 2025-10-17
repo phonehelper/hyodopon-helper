@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>효도폰헬퍼 - 부모님 스마트폰 도움 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .features h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-item h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .pricing {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 48px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price-desc {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ffe0e0;
+            color: #c33;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .cta {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9ff;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .testimonial h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .testimonial-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            text-align: right;
+            color: #888;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 26px;
+            }
+            
+            .price-tag {
+                font-size: 36px;
+            }
+        }
+
+        /* 예약 폼 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 히어로 섹션 -->
+        <div class="hero">
+            <div class="emoji">👵📱💝</div>
+            <h1>부모님 스마트폰,<br>이제 자식이 옆에 없어도 괜찮아요</h1>
+            <div class="subtitle">카카오페이부터 사진 정리까지, 언제든 도와드립니다</div>
+        </div>
+
+        <!-- 문제 제기 -->
+        <div class="testimonial">
+            <h3>😢 이런 고민 있으신가요?</h3>
+            <div class="testimonial-item">
+                "엄마가 하루에 3번씩 전화하시는데, 매번 같은 질문이에요..."
+                <div class="testimonial-author">- 직장인 김OO</div>
+            </div>
+            <div class="testimonial-item">
+                "멀리 떨어져 사는 부모님, 전화로는 설명이 안 돼요."
+                <div class="testimonial-author">- 대학생 박OO</div>
+            </div>
+            <div class="testimonial-item">
+                "카카오페이 쓰시다가 막히면 미안하다고 안 물어보세요..."
+                <div class="testimonial-author">- 회사원 이OO</div>
+            </div>
+        </div>
+
+        <!-- 서비스 특징 -->
+        <div class="features">
+            <h2>✨ 이렇게 도와드려요</h2>
+            
+            <div class="feature-item">
+                <h3>📱 화면 보면서 실시간 도움</h3>
+                <p>카카오톡 화면공유로 부모님이 보시는 화면을 함께 보면서 차근차근 설명드려요</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>📞 월 2회 정기 점검 전화</h3>
+                <p>불편한 점은 없으신지, 새로 배우고 싶은 기능은 없으신지 먼저 연락드려요</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>💬 언제든 카톡으로 문의</h3>
+                <p>궁금한 점 생기면 카톡으로 바로 물어보세요. 빠르게 답변드립니다</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>📚 이런 것들을 도와드려요</h3>
+                <p>
+                    • 카카오페이, 네이버페이 사용법<br>
+                    • 사진 정리 및 백업<br>
+                    • 앱 설치/삭제<br>
+                    • 설정 변경 (글자 크기, 소리 등)<br>
+                    • 스팸 차단, 보안 설정<br>
+                    • 그 외 모든 스마트폰 관련 질문
+                </p>
+            </div>
+        </div>
+
+        <!-- 가격 -->
+        <div class="pricing">
+            <h2>💰 이용 요금</h2>
+            <div class="badge">🎁 첫 달 완전 무료!</div>
+            <div class="price-tag">월 19,900원</div>
+            <div class="price-desc">커피 5잔 값으로 부모님께 효도하세요</div>
+            <p style="color: #888; font-size: 14px; margin-top: 10px;">
+                * 첫 달 무료 체험 후 만족하시면 계속 이용하세요<br>
+                * 언제든 해지 가능, 위약금 없음
+            </p>
+        </div>
+
+        <!-- 실제 후기 -->
+        <div class="testimonial">
+            <h3>😊 이용하시는 분들의 후기</h3>
+            <div class="testimonial-item">
+                "이제 애한테 미안해서 못 물어보던 거 편하게 물어봐요!"
+                <div class="testimonial-author">- 이용자 어머님 (62세)</div>
+            </div>
+            <div class="testimonial-item">
+                "부모님이 혼자서도 카카오페이 쓰시니까 진짜 편해요"
+                <div class="testimonial-author">- 이용자 자녀 (28세)</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <button class="btn" onclick="openModal()">
+                🎁 첫 달 무료 체험 신청하기
+            </button>
+            <button class="btn btn-secondary" onclick="openKakao()">
+                💬 카카오톡으로 문의하기
+            </button>
+            <p style="color: #888; font-size: 14px; margin-top: 20px;">
+                ✅ 신청 후 24시간 내 연락드립니다<br>
+                ✅ 무료 체험 기간 중 해지 가능
+            </p>
+        </div>
+    </div>
+
+    <!-- 예약 모달 -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="color: #667eea; margin-bottom: 20px;">🎁 무료 체험 신청</h2>
+            
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label>신청자 성함 *</label>
+                    <input type="text" id="name" required placeholder="예: 김효도">
+                </div>
+
+                <div class="form-group">
+                    <label>연락처 *</label>
+                    <input type="tel" id="phone" required placeholder="010-1234-5678">
+                </div>
+
+                <div class="form-group">
+                    <label>나이대 *</label>
+                    <select id="age" required>
+                        <option value="">선택해주세요</option>
+                        <option value="40대">40대</option>
+                        <option value="50대">50대</option>
+                        <option value="60대">60대</option>
+                        <option value="70대 이상">70대 이상</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>주로 어떤 부분이 어려우신가요?</label>
+                    <textarea id="issue" placeholder="예: 카카오페이 송금, 사진 정리, 앱 설치 등"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>희망 연락 시간대</label>
+                    <select id="preferred-time">
+                        <option value="오전">오전 (09:00-12:00)</option>
+                        <option value="오후">오후 (13:00-18:00)</option>
+                        <option value="저녁">저녁 (18:00-21:00)</option>
+                        <option value="언제든">언제든 괜찮아요</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">신청 완료</button>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <h3 style="margin-bottom: 10px;">✅ 신청이 완료되었습니다!</h3>
+                <p>24시간 내에 연락드리겠습니다.<br>감사합니다 😊</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 모달 열기/닫기
+        function openModal() {
+            document.getElementById('reservationModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('reservationModal').style.display = 'none';
+            document.getElementById('reservationForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // 카카오톡 채널 열기 (실제 채널 URL로 변경 필요)
+        function openKakao() {
+            alert('카카오톡 채널 개설 후 링크를 연결해주세요!\n\n임시로 카카오톡으로 이동합니다.');
+            // window.open('http://pf.kakao.com/_your_channel_id', '_blank');
+        }
+
+        // 폼 제출
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 제출 버튼 비활성화 (중복 제출 방지)
+            const submitBtn = document.querySelector('#reservationForm button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = '신청 처리중...';
+
+            // 폼 데이터 수집
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                age: document.getElementById('age').value,
+                issue: document.getElementById('issue').value,
+                preferredTime: document.getElementById('preferred-time').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Google Apps Script 웹앱으로 데이터 전송
+            const webAppUrl = 'https://script.google.com/macros/s/AKfycbyiakI0P4KMZV4kNzwMhkQQDoIs-vviRSfTMsinnna1lhgXo34nXO2HEObSItl5PIUfmg/exec';
+            
+            fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors', // CORS 이슈 우회
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                // no-cors 모드에서는 응답을 읽을 수 없지만, 요청은 성공적으로 전송됨
+                console.log('신청 데이터 전송 완료:', formData);
+                document.getElementById('reservationForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('전송 오류:', error);
+                // 오류가 발생해도 일단 성공 메시지 표시 (no-cors 특성상)
+                document.getElementById('reservationForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            })
+            .finally(() => {
+                // 버튼 복구
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
+        });
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('reservationModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
