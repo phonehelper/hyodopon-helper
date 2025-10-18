@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>효도폰헬퍼 - 부모님 스마트폰 지원 서비스</title>
+    <title>효도폰헬퍼 - 부모님 스마트폰 원격 지원 서비스</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
         * {
             margin: 0;
             padding: 0;
@@ -14,608 +15,843 @@
         }
 
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-            line-height: 1.6;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, -30px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: #4b5563;
+            margin-bottom: 40px;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 48px;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* Section Base */
+        section {
+            padding: 120px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3.5em;
+        section h2 {
+            font-size: 42px;
             font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            text-align: center;
+            margin-bottom: 64px;
+            letter-spacing: -0.02em;
         }
 
-        .subtitle {
-            font-size: 1.5em;
-            font-weight: 500;
-            margin-bottom: 10px;
-            opacity: 0.95;
+        /* Problems Section */
+        .problems {
+            background: #fafafa;
         }
 
-        .tagline {
-            font-size: 1.2em;
-            font-weight: 400;
-            opacity: 0.9;
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
         }
 
-        /* Main Content */
-        .main-content {
+        .problem-card {
             background: white;
-            margin: -40px auto 0;
-            max-width: 1100px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-
-        section {
-            padding: 60px 80px;
-        }
-
-        section:not(:last-child) {
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #212529;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* Intro Section */
-        .intro h2 {
-            color: #667eea;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-
-        .benefit-item {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
         }
 
-        .benefit-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
-        }
-
-        .benefit-item h4 {
-            color: #212529;
-            font-size: 1.3em;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .benefit-item p {
-            color: #6c757d;
-            line-height: 1.7;
-        }
-
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 30px;
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
+        .problem-card:hover {
             transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-card h3 {
-            font-size: 1.5em;
+        .problem-card h3 {
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
         }
 
-        .feature-card p {
-            font-size: 1em;
-            opacity: 0.95;
-            line-height: 1.7;
-        }
-
-        /* Pricing */
-        .pricing {
-            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
-            text-align: center;
-        }
-
-        .pricing h2 {
-            color: #667eea;
-        }
-
-        .price-tag {
-            font-size: 3.5em;
-            color: #764ba2;
-            font-weight: 700;
-            margin: 30px 0;
-        }
-
-        .price-details {
-            font-size: 1.3em;
-            color: #495057;
-            margin-bottom: 25px;
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 50px;
-            display: inline-block;
-            font-size: 1.4em;
-            font-weight: 600;
-            margin: 25px 0;
-        }
-
-        .pricing p {
-            color: #6c757d;
-            font-size: 1.15em;
+        .problem-card p {
+            color: #6b7280;
+            font-size: 16px;
             line-height: 1.8;
-            margin-top: 25px;
         }
 
-        /* Process Steps */
-        .process-steps {
+        /* Services Section */
+        .services {
+            background: white;
+        }
+
+        .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
-        .step {
-            background: #f8f9fa;
-            padding: 35px 25px;
-            border-radius: 12px;
+        .service-item {
             text-align: center;
+            padding: 40px 24px;
+            border-radius: 16px;
             transition: all 0.3s ease;
+            background: #fafafa;
         }
 
-        .step:hover {
-            background: #e9ecef;
+        .service-item:hover {
+            background: #f0f0f0;
         }
 
-        .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 60px;
-            height: 60px;
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: #2563eb;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8em;
-            font-weight: 700;
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            color: white;
         }
 
-        .step h3 {
-            color: #212529;
-            font-size: 1.3em;
+        .service-item h3 {
+            font-size: 22px;
             font-weight: 600;
             margin-bottom: 12px;
         }
 
-        .step p {
-            color: #6c757d;
+        .service-item p {
+            color: #6b7280;
+            font-size: 15px;
             line-height: 1.7;
         }
 
-        /* FAQ */
-        .faq-section h2 {
-            color: #667eea;
+        /* Reviews Section */
+        .reviews {
+            background: #fafafa;
         }
 
-        .faq-item {
-            background: #f8f9fa;
-            padding: 25px 30px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
         }
 
-        .faq-item:hover {
-            background: #e9ecef;
+        .review-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
         }
 
-        .faq-question {
-            font-weight: 600;
-            color: #212529;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        .faq-answer {
-            color: #6c757d;
+        .review-text {
+            font-size: 16px;
             line-height: 1.8;
-            display: none;
-            margin-top: 15px;
+            color: #4b5563;
+            margin-bottom: 24px;
         }
 
-        .faq-item.active .faq-answer {
-            display: block;
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        /* Application Form */
-        .application-form {
-            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
-        }
-
-        .application-form h2 {
-            color: #667eea;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #212529;
+        .reviewer-avatar {
+            width: 48px;
+            height: 48px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 600;
-            font-size: 1.1em;
+            color: #6b7280;
         }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            font-size: 1.05em;
-            font-family: 'Pretendard', sans-serif;
-            transition: all 0.3s ease;
+        .reviewer-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .reviewer-info p {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Pricing Section */
+        .pricing {
             background: white;
         }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 140px;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 50px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-family: 'Pretendard', sans-serif;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Messages */
-        .success-message, .error-message {
-            padding: 20px;
-            border-radius: 10px;
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #2563eb;
+            border-radius: 24px;
+            padding: 56px 48px;
             text-align: center;
-            margin-top: 25px;
-            display: none;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .price-tag {
+            font-size: 56px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .price-tag small {
+            font-size: 24px;
+            color: #6b7280;
             font-weight: 500;
         }
 
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .price-description {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 32px;
         }
 
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .price-features li {
+            padding: 12px 0;
+            font-size: 16px;
+            color: #4b5563;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: #fafafa;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+
+        .faq-question {
+            padding: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #fafafa;
+        }
+
+        .faq-answer {
+            padding: 0 24px 24px;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .final-cta h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .final-cta .cta-button {
+            background: white;
+            color: #2563eb;
+        }
+
+        .final-cta .cta-button:hover {
+            background: #f9fafb;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
         footer {
-            background: #212529;
+            background: #1a1a1a;
             color: white;
-            padding: 50px 20px;
+            padding: 60px 20px 40px;
             text-align: center;
         }
 
-        footer p {
-            margin: 10px 0;
-            opacity: 0.9;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        footer p:first-child {
-            font-size: 1.2em;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-info {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 48px;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideUp 0.3s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #1a1a1a;
+        }
+
+        .modal h3 {
+            font-size: 28px;
+            margin-bottom: 32px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: #1d4ed8;
+        }
+
+        .submit-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
+            .hero h1 {
+                font-size: 36px;
             }
 
-            h2 {
-                font-size: 2em;
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .hero .description {
+                font-size: 16px;
             }
 
             section {
-                padding: 40px 30px;
+                padding: 80px 20px;
+            }
+
+            section h2 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .pricing-card {
+                padding: 40px 32px;
             }
 
             .price-tag {
-                font-size: 2.5em;
+                font-size: 42px;
             }
 
-            .benefits-grid, .features, .process-steps {
-                grid-template-columns: 1fr;
+            .modal-content {
+                padding: 32px 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>효도폰헬퍼</h1>
-            <p class="subtitle">부모님의 스마트폰 고민, 이제 걱정 끝!</p>
-            <p class="tagline">언제든지 전화 한 통이면 해결되는 원격 스마트폰 지원 서비스</p>
-        </header>
-
-        <div class="main-content">
-            <section class="intro">
-                <h2>이런 고민 있으시죠?</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <h4>앱 설치가 어려워요</h4>
-                        <p>"이 앱 어떻게 깔아? 버튼이 너무 많아서 모르겠어..."</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4>카톡 사용이 복잡해요</h4>
-                        <p>"사진은 어떻게 보내? 단톡방은 또 뭐야?"</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4>비밀번호를 잊어버렸어요</h4>
-                        <p>"비밀번호가 뭐였지? 계속 틀렸다고 나와..."</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4>설정이 복잡해요</h4>
-                        <p>"글자 크기 키우고 싶은데 어디서 하는 거야?"</p>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h2>주요 서비스</h2>
-                <div class="features">
-                    <div class="feature-card">
-                        <h3>전화 한 통으로 해결</h3>
-                        <p>복잡한 스마트폰 문제, 카카오톡 영상통화로 실시간 원격 지원</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>친절한 1:1 맞춤 교육</h3>
-                        <p>천천히, 쉽게, 이해될 때까지 반복해서 설명해드립니다</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>정기 점검 서비스</h3>
-                        <p>월 1회 정기 체크업으로 스마트폰 건강 상태 관리</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>무제한 문의</h3>
-                        <p>궁금한 점이 생기면 언제든지 연락하세요. 횟수 제한 없습니다</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="pricing">
-                <h2>특별 가격 안내</h2>
-                <div class="price-tag">월 19,900원</div>
-                <p class="price-details">무제한 원격 지원 + 월 1회 정기 체크업 포함</p>
-                <div class="highlight">첫 달 완전 무료</div>
-                <p>
-                    만족하시면 계속 이용하시고, 아니면 언제든 해지 가능합니다<br>
-                    부담 없이 한 달 동안 체험해보세요!
-                </p>
-            </section>
-
-            <section>
-                <h2>이용 방법</h2>
-                <div class="process-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>신청하기</h3>
-                        <p>아래 신청서를 작성하고 제출해주세요</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>상담 전화</h3>
-                        <p>24시간 내 연락드려 서비스를 설명해드립니다</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>무료 체험</h3>
-                        <p>한 달 동안 모든 서비스를 무료로 이용하세요</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <h3>정식 등록</h3>
-                        <p>만족하시면 월 19,900원으로 계속 이용</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="faq-section">
-                <h2>자주 묻는 질문</h2>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 정말 모든 스마트폰 문제를 도와주시나요?</div>
-                    <div class="faq-answer">
-                        A. 네! 앱 설치, 카카오톡 사용법, 사진 관리, 설정 변경, 비밀번호 찾기 등 
-                        스마트폰 사용과 관련된 모든 문제를 도와드립니다. 
-                        단, 하드웨어 고장(화면 깨짐, 배터리 문제 등)은 서비스센터 방문이 필요합니다.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 원격 지원은 어떻게 진행되나요?</div>
-                    <div class="faq-answer">
-                        A. 카카오톡 영상통화를 통해 화면을 보면서 실시간으로 도와드립니다. 
-                        마치 옆에서 직접 알려드리는 것처럼 천천히 단계별로 설명해드리니 
-                        컴퓨터나 스마트폰에 익숙하지 않으셔도 걱정 마세요!
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 몇 번까지 도움을 받을 수 있나요?</div>
-                    <div class="faq-answer">
-                        A. 횟수 제한이 없습니다! 월 19,900원으로 무제한 지원을 받으실 수 있습니다. 
-                        같은 문제를 여러 번 물어보셔도 괜찮고, 새로운 문제가 생길 때마다 
-                        언제든지 연락 주세요.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 정기 체크업은 뭔가요?</div>
-                    <div class="faq-answer">
-                        A. 한 달에 한 번, 저희가 먼저 연락드려서 스마트폰 상태를 점검해드립니다. 
-                        불필요한 앱 정리, 저장 공간 확보, 업데이트 확인 등 
-                        스마트폰이 항상 쾌적하게 작동하도록 관리해드립니다.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 해지는 어떻게 하나요?</div>
-                    <div class="faq-answer">
-                        A. 언제든지 전화나 카카오톡으로 해지 요청하시면 즉시 처리됩니다. 
-                        위약금이나 추가 비용은 전혀 없으며, 이미 결제하신 달까지만 
-                        서비스를 이용하실 수 있습니다.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Q. 첫 달 무료 체험 후 자동으로 결제되나요?</div>
-                    <div class="faq-answer">
-                        A. 아니요! 무료 체험 기간이 끝나기 전에 저희가 먼저 연락드려서 
-                        정식 등록 의사를 확인합니다. 원하시지 않으면 자동으로 종료되며, 
-                        어떠한 비용도 청구되지 않습니다.
-                    </div>
-                </div>
-            </section>
-
-            <section class="application-form">
-                <h2>무료 체험 신청하기</h2>
-                <form id="applicationForm" onsubmit="submitForm(event)">
-                    <div class="form-group">
-                        <label for="name">이름 *</label>
-                        <input type="text" id="name" name="name" required placeholder="예: 홍길동">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">연락처 *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="age">연령대 *</label>
-                        <select id="age" name="age" required>
-                            <option value="">선택해주세요</option>
-                            <option value="50대">50대</option>
-                            <option value="60대">60대</option>
-                            <option value="70대">70대</option>
-                            <option value="80대 이상">80대 이상</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="difficulty">현재 가장 어려운 점</label>
-                        <textarea id="difficulty" name="difficulty" placeholder="예: 카카오톡으로 사진 보내는 방법을 모르겠어요"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">무료 체험 신청하기</button>
-                </form>
-
-                <div id="successMessage" class="success-message">
-                    신청이 완료되었습니다!<br>
-                    24시간 내에 연락드리겠습니다.
-                </div>
-
-                <div id="errorMessage" class="error-message">
-                    신청 중 오류가 발생했습니다.<br>
-                    다시 시도해주시거나 직접 연락 부탁드립니다.
-                </div>
-            </section>
-        </div>
-
-        <footer>
-            <p>궁금하신 점이 있으시면 언제든지 연락주세요!</p>
-            <p>전화: 010-XXXX-XXXX</p>
-            <p>카카오톡: @효도폰헬퍼</p>
-            <p style="margin-top: 30px; opacity: 0.7;">
-                © 2024 효도폰헬퍼. All rights reserved.
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>부모님의 스마트폰 고민<br>이제 걱정 없습니다</h1>
+            <p class="subtitle">효도폰헬퍼가 함께합니다</p>
+            <p class="description">
+                카카오톡 화면공유로 실시간 지원부터 정기 체크업까지.<br>
+                어려운 스마트폰, 이제 쉽고 편하게 사용하세요.
             </p>
-        </footer>
+            <a href="#" class="cta-button" onclick="openModal(); return false;">첫 달 무료로 시작하기</a>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <h2>이런 어려움 겪고 계신가요?</h2>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>앱 설치가 너무 어려워요</h3>
+                <p>필요한 앱을 찾고 설치하는 것부터 막막합니다. 권한 설정은 더욱 복잡하게 느껴집니다.</p>
+            </div>
+            <div class="problem-card">
+                <h3>설정을 어떻게 바꾸죠?</h3>
+                <p>알림 소리, 화면 밝기, 글자 크기 등 기본 설정도 혼자서는 어렵습니다.</p>
+            </div>
+            <div class="problem-card">
+                <h3>이상한 문자가 왔는데...</h3>
+                <p>피싱 문자인지 정상 문자인지 판단이 어렵고, 클릭하면 안 될 것 같은데 확신이 없습니다.</p>
+            </div>
+            <div class="problem-card">
+                <h3>자녀에게 물어보기 미안해요</h3>
+                <p>바쁜 자녀에게 자꾸 물어보기가 부담스럽고, 같은 질문을 반복하기도 죄송합니다.</p>
+            </div>
+            <div class="problem-card">
+                <h3>사진이 어디로 갔죠?</h3>
+                <p>찍은 사진을 찾지 못하거나, 실수로 삭제한 사진을 복구하고 싶습니다.</p>
+            </div>
+            <div class="problem-card">
+                <h3>업데이트 알림이 무섭습니다</h3>
+                <p>앱 업데이트, 시스템 업데이트 알림이 자꾸 뜨는데 눌러도 되는지 걱정됩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2>효도폰헬퍼의 서비스</h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <div class="service-icon">1</div>
+                <h3>실시간 화면공유 지원</h3>
+                <p>카카오톡 화면공유로 전문가가 직접 보면서 단계별로 안내해드립니다</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">2</div>
+                <h3>월 2회 정기 체크업</h3>
+                <p>매월 정해진 날짜에 전화로 불편사항을 확인하고 해결해드립니다</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">3</div>
+                <h3>무제한 카톡 상담</h3>
+                <p>궁금한 것이 생기면 언제든 카카오톡으로 문의하세요. 24시간 내 답변드립니다</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">4</div>
+                <h3>안전 교육</h3>
+                <p>피싱 예방, 스미싱 구별법 등 디지털 안전 교육을 정기적으로 제공합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2>이용자 후기</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <p class="review-text">"전화로 설명해주시니까 훨씬 이해가 잘 되네요. 이제 은행 앱도 혼자 쓸 수 있어요."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">김</div>
+                    <div class="reviewer-info">
+                        <h4>62세 이용자</h4>
+                        <p>3개월 이용 중</p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"피싱 문자 구별하는 법을 알려주셔서 이제 안심하고 스마트폰을 쓸 수 있습니다."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">박</div>
+                    <div class="reviewer-info">
+                        <h4>58세 이용자</h4>
+                        <p>5개월 이용 중</p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"자식한테 물어보기 미안했는데, 이제 편하게 도움받을 수 있어서 좋아요."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">이</div>
+                    <div class="reviewer-info">
+                        <h4>67세 이용자</h4>
+                        <p>2개월 이용 중</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <h2>합리적인 가격</h2>
+        <div class="pricing-card">
+            <div class="price-tag">19,900원<small>/월</small></div>
+            <p class="price-description">첫 달 무료 체험</p>
+            <ul class="price-features">
+                <li>실시간 화면공유 지원 무제한</li>
+                <li>월 2회 정기 체크업 전화</li>
+                <li>카카오톡 무제한 상담</li>
+                <li>디지털 안전 교육</li>
+                <li>24시간 이내 답변 보장</li>
+            </ul>
+            <a href="#" class="cta-button" onclick="openModal(); return false;">지금 신청하기</a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>자주 묻는 질문</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    어떻게 도움을 받나요?
+                </div>
+                <div class="faq-answer">
+                    카카오톡 화면공유 기능을 이용합니다. 간단한 버튼 클릭만으로 화면을 공유하시면, 전문가가 직접 보면서 단계별로 안내해드립니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    급할 때 바로 도움받을 수 있나요?
+                </div>
+                <div class="faq-answer">
+                    네, 카카오톡으로 문의하시면 24시간 내에 답변드립니다. 급한 경우에는 화면공유로 즉시 지원해드립니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    정말 첫 달이 무료인가요?
+                </div>
+                <div class="faq-answer">
+                    네, 서비스가 마음에 드시는지 충분히 체험해보시라고 첫 달은 완전 무료입니다. 만족하지 못하시면 언제든 해지 가능합니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    어떤 스마트폰도 가능한가요?
+                </div>
+                <div class="faq-answer">
+                    네, 삼성 갤럭시, 애플 아이폰, LG 폰 등 모든 스마트폰을 지원합니다. 카카오톡만 설치되어 있으면 됩니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <h2>지금 바로 시작하세요</h2>
+        <p>첫 달 무료로 효도폰헬퍼를 경험해보세요</p>
+        <a href="#" class="cta-button" onclick="openModal(); return false;">무료 체험 신청하기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="http://pf.kakao.com/_wxaatn" target="_blank">카카오톡 채널</a>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+            <div class="footer-info">
+                <p>효도폰헬퍼</p>
+                <p>문의: 카카오톡 채널 @효도폰헬퍼</p>
+                <p>&copy; 2024 효도폰헬퍼. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h3>서비스 신청하기</h3>
+            <form id="applicationForm" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label for="name">이름 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처 *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">연령대 *</label>
+                    <select id="age" name="age" required>
+                        <option value="">선택해주세요</option>
+                        <option value="50대">50대</option>
+                        <option value="60대">60대</option>
+                        <option value="70대">70대</option>
+                        <option value="80대 이상">80대 이상</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">주요 어려움</label>
+                    <textarea id="difficulty" name="difficulty" rows="4" placeholder="어떤 부분이 가장 어려우신가요?"></textarea>
+                </div>
+                <button type="submit" class="submit-button" id="submitButton">신청하기</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        function toggleFaq(element) {
-            element.classList.toggle('active');
+        // Modal functions
+        function openModal() {
+            document.getElementById('applicationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
+        function closeModal() {
+            document.getElementById('applicationModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('applicationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.style.display = 'none';
+                });
+                
+                // Open clicked answer if it was closed
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                }
+            });
+        });
+
+        // Form submission
         async function submitForm(event) {
             event.preventDefault();
             
-            const submitButton = event.target.querySelector('.submit-btn');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = '신청 중...';
+            const submitButton = document.getElementById('submitButton');
             submitButton.disabled = true;
+            submitButton.textContent = '신청 중...';
 
             const formData = {
                 name: document.getElementById('name').value,
@@ -634,28 +870,23 @@
                     body: JSON.stringify(formData)
                 });
 
-                document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('errorMessage').style.display = 'none';
+                alert('신청이 완료되었습니다!\n24시간 내에 카카오톡으로 연락드리겠습니다.');
                 document.getElementById('applicationForm').reset();
-
-                setTimeout(() => {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 5000);
-
+                closeModal();
+                
+                // Redirect to KakaoTalk channel
+                window.open('http://pf.kakao.com/_wxaatn', '_blank');
+                
             } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('successMessage').style.display = 'none';
-                document.getElementById('errorMessage').style.display = 'block';
-
-                setTimeout(() => {
-                    document.getElementById('errorMessage').style.display = 'none';
-                }, 5000);
+                alert('신청 중 오류가 발생했습니다.\n카카오톡 채널로 직접 문의해주세요.');
+                window.open('http://pf.kakao.com/_wxaatn', '_blank');
             } finally {
-                submitButton.textContent = originalText;
                 submitButton.disabled = false;
+                submitButton.textContent = '신청하기';
             }
         }
 
+        // Phone number formatting
         document.getElementById('phone').addEventListener('input', function(e) {
             let value = e.target.value.replace(/[^0-9]/g, '');
             if (value.length > 3 && value.length <= 7) {
